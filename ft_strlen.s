@@ -3,13 +3,13 @@ section .text
 global ft_strlen
 
 ft_strlen:
-    mov rsi ,rdi
+    mov r8 ,rdi
     start_loop:
-        cmp byte [rsi], 0
+        cmp byte [r8], 0
         je exit_loop
-        inc rsi
+        inc r8
         jne start_loop
     exit_loop:
-    mov rax, rsi 
+    mov rax, r8 
     sub rax, rdi
     ret
