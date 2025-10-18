@@ -1,19 +1,22 @@
 BITS 64
 section .text
 global ft_strcmp
-; to do need fixing 
 
 ft_strcmp:
-    mov r10, 0
     loop:
-        mov r10b,  byte [rdi]
-        sub r10b, byte [rsi]
-        cmp r10b,  0
-        jne exit 
-        inc rsi
-        inc rdi
-        jmp loop
-    exit:
-    mov rax , r10
+    mov al , [rdi]
+    mov bl, [rsi]
+    cmp al , bl 
+    jne exit 
+    cmp al , 0
+    je exit
+    inc rdi 
+    inc rsi 
+    jmp loop
+    exit: 
+
+    movzx eax, al
+    movzx ecx, bl
+    sub eax, ecx
     ret
 
