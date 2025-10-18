@@ -1,2 +1,2 @@
 # libasm
-creating a library from assembly
+creating a library using assembly
