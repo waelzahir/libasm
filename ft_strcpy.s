@@ -3,16 +3,15 @@ section .text
 global ft_strcpy
 
 ft_strcpy:
-    mov rax, rdi
-    mov r10, 0
-    start_loop:
-        mov r10b, [rsi]
-        mov [rdi], r10b
-        cmp r10b, 0
-        je exit_loop
-        inc rdi 
-        inc rsi
-        jmp start_loop
-    exit_loop:
+    push rdi
+    loop:
+    mov al , [rsi]
+    mov [rdi], al
+    cmp al, 0
+    je  exit 
+    inc rsi 
+    inc rdi 
+    jmp loop
+    exit:
+    pop rax 
     ret
-
