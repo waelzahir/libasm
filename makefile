@@ -14,22 +14,22 @@ OBJ := $(addprefix $(OBJ_DIR)/, $(OBJ))
 
 SRC := $(addprefix $(SRC_DIR)/, $(SRC)) 
 
-LIB = libft.a
+NAME = libft.a
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.s
-	nasm $(NASMFLAGS)  $< -o $@
+	nasm $(NASMFLAGS)  $< -o $@ 
 
-all : ${LIB}
+all : ${NAME}
 
-$(LIB):  $(OBJ) 
-	ar $(ARFLAGS) $(LIB) $(OBJ)
-
-
+$(NAME):  $(OBJ) 
+	@ar $(ARFLAGS) $(NAME) $(OBJ)
 clean:
 	rm -rf $(OBJ)
 
 fclean:  clean 
-	rm  -rf $(LIB) myprogram
+	rm  -rf $(NAME) myprogram
+re: fclean all
+
 run : all
-	gcc main.c -L. -lft -o myprogram -g -no-pie
+	gcc main.c -L. -lft -o myprogram -g 
 	./myprogram

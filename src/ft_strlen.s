@@ -1,5 +1,5 @@
-BITS 64
-section .text
+; BITS 64
+; section .text
 global ft_strlen
 
 ft_strlen:
@@ -14,4 +14,5 @@ ft_strlen:
     mov rax , rdi 
     sub rax , rsi 
     ret
-     
+
+section .note.GNU-stack

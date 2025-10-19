@@ -1,9 +1,10 @@
-BITS 64
-section .text
+; BITS 64
+; section .text
 global ft_strcpy
 
 ft_strcpy:
     push rdi
+    push rsi
     loop:
     mov al , [rsi]
     mov [rdi], al
@@ -13,5 +14,9 @@ ft_strcpy:
     inc rdi 
     jmp loop
     exit:
-    pop rax 
+    pop rsi 
+    pop rdi
+    mov rax , rdi
     ret
+
+section .note.GNU-stack

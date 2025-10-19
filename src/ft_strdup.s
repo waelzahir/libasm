@@ -1,5 +1,5 @@
-BITS 64
-section .text
+; BITS 64
+; section .text
 global ft_strdup
 extern ft_strlen
 extern ft_strcpy
@@ -14,17 +14,24 @@ ft_strdup:
     ret
 
 continue:
-    call ft_strlen
-    inc rax
-    push rdi 
-    mov rdi, rax
-    call malloc
-    cmp rax ,0
-    je malloc_fail
-    mov rdi , rax
-    pop rsi 
-    call ft_strcpy
-    ret
+   push rdi
+   push rdi
+   call ft_strlen
+   inc rax
+   mov rdi, rax 
+   call malloc  wrt ..plt
+   cmp rax, 0
+   je malloc_fail
+   mov rdi , rax 
+   pop rsi 
+   call ft_strcpy
+   pop rax 
+   ret
+
 malloc_fail:
     mov rax, 0
     ret 
+
+
+
+section .note.GNU-stack

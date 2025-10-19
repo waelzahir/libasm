@@ -1,5 +1,5 @@
-BITS 64
-section .text
+; BITS 64
+; section .text
 global ft_strcmp
 
 ft_strcmp:
@@ -19,4 +19,6 @@ ft_strcmp:
     movzx ecx, bl
     sub eax, ecx
     ret
+
+section .note.GNU-stack
 
