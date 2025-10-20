@@ -6,7 +6,8 @@ SRC_DIR := src
 OBJ_DIR := obj
 
 SRC = ft_read.s ft_strcmp.s ft_strcpy.s \
-	ft_strdup.s ft_strlen.s ft_write.s 
+	ft_strdup.s ft_strlen.s ft_write.s \
+	ft_putnbr_base.s
 
 OBJ = $(SRC:.s=.o)
 

@@ -49,6 +49,9 @@ int main(){
     ft_write( -1, "e\n", 2);
     perror("");
 
+    // putnmbrbase
+    int ret = ft_putnbr_base(44, "an47");
+    printf("%d\n", ret);
 
 
 
