@@ -5,136 +5,127 @@ extern ft_write
 ; r12 number to be inputed
 
 ft_putnbr_base:
+    ;check string is null 
     cmp rsi, 0
-    je exit_fail;
-    push rdi
+    je putnbr_base_fail;
+    push rdi 
     push rsi 
-    mov rdi ,rsi
-    call ft_strlen
+    ; check string if parsable
+    call check_string
     pop rsi 
     pop rdi
-    cmp rax, 2
-    jl exit_fail
-    mov r10, rsi 
-    loop:
-        cmp byte[r10], '-'
-        je exit_fail
-        cmp byte[r10], '+'
-        je exit_fail
-        inc r10
-        cmp byte[r10], 0
-        je check_success
-        jmp loop
-check_success:
-    cmp edi , 0
-    jge check_duplicates
-    neg edi
-
-
-
-print_negative:
-    push rax
-    push rdi
-    push rsi
-    sub rsp, 1
-    mov byte[rsp], '-'
-    mov rdi , 1
-    mov rsi, rsp
-    mov rdx, 1
-    call ft_write;
-    add rsp, 1
-    pop rsi 
-    pop rdi
-    mov r10, rax
-    pop rax
-    cmp r10 , 0
-    jl exit_fail
-  
-
-check_duplicates:
-   
-    sub rsp, 256
-    mov r11, 0
-    zero:
-        mov r10b, byte [rsi +r11]
-        mov byte [rsp + r10], 0
-        inc r11
-        cmp byte [rsi, + r10], 0
-        je check_body
-        jmp zero
-check_body:
-    
-    mov r11, 0
-    check_loop:
-        mov r10b, byte [rsi +r11]
-        cmp r10b, 0
-        je no_duplicates
-        cmp byte [rsp , r10], 0
-        jne check_fail
-        mov byte [rsp +r10], 1
-        inc r11
-        jmp check_loop
-
-no_duplicates:
-    
-    ;recover stack to its original position
-    add rsp, 256
-    
-    ; copy stackPointer
-    mov r11 , rsp 
-    mov r10d, eax 
-    ; ; r10d hold string lengh
-    ; ; rdi hold the integer
-    ; ; rsi hold the string 
-        mov eax, edi
-    modulo_loop:
-        cdq
-        idiv r10d 
-        push rdx
-        cmp  eax , 0
-        pop rdx
-    mov rax, 222222
-    ret 
-    ;     je print_pop;
-    ;     jmp modulo_loop
-    ; mov r10 , rsi
-    ; print_pop:
-    ; mov rax , rsi
-    ; ret 
-    ; ;     cmp rsp , r11
-    ; ;     je  func_success
-    ; ;     mov rdi , 1
-    ; ;     mov r12b, [rsp];
-    ; ;     add r12, r10
-    ; ;     mov rsi , r12 
-    ; ;     mov rdx , 1
-    ; ;     call ft_write
-    ; ;     pop rdx
-    ; ;     jmp print_pop
-    ; ; ; mov eax ,r10d
-
-func_success
+    cmp rax , -1
+    je putnbr_base_fail
+    call print_routine
     ret
 
 
 
 
-
-
-
-check_fail:
-    add rsp, 256
-    jmp exit_fail
-
-    
-
-
-
-exit_fail:
+putnbr_base_fail:
     mov rax, -1
     ret
 
-  
 
 
-  section .note.GNU-stack
+
+
+; main print routine 
+print_routine:
+    cmp edi , 0
+    jge neg_skip_jump
+    neg rdi
+    mov r10b, '-'
+    call print_char
+    neg_skip_jump:
+
+    ;copy the divisor
+    mov r12, rsp
+    mov r11d, eax
+    mov eax, edi
+    div_loop:    
+        mov ebx, r11d
+        mov edx, 0
+        div r11d
+        push rdx
+        cmp rax, 0
+        je break_loop
+        jmp div_loop
+    break_loop:
+        cmp r12, rsp 
+        je print_done
+        pop rdx 
+        mov r10b , byte [rsi + rdx]
+        call print_char        
+        jmp break_loop
+    print_done:
+
+    ret 
+
+
+print_char:
+    push rdi 
+    push rsi 
+    push rax 
+    sub rsp ,2
+    mov  byte [rsp], r10b
+    mov rdi, 1
+    mov rsi , rsp 
+    mov rdx, 1
+    call ft_write 
+    add rsp, 2
+    pop rax 
+    pop rsi 
+    pop rdi
+    ret
+
+
+
+
+
+; main parse routine 
+check_string: 
+   mov rdi , rsi 
+   push rdi 
+   call ft_strlen
+   pop rdi
+   cmp rax, 2 
+   jl  check_str_fail
+   sub rsp, 256
+   mov rsi, 0
+   stack_zero:
+        cmp rsi , 256
+        je break_zero_loop
+        mov byte [rsp + rsi], 0
+        inc rsi
+        jmp stack_zero
+break_zero_loop:
+
+
+    check_string_loop:
+        movzx  r10, byte [rdi]
+        cmp r10 , 0
+        je check_string_loop_escape
+        cmp r10, '-'
+        je check_str_fail_stack_adjusted
+        cmp r10, '+'
+        je check_str_fail_stack_adjusted
+        cmp byte [rsp + r10], 1
+        je check_str_fail_stack_adjusted
+        mov byte [rsp + r10], 1
+        inc rdi
+        jmp check_string_loop
+    check_string_loop_escape:
+    add rsp , 256
+    ret
+
+
+check_str_fail_stack_adjusted:
+    add rsp , 256
+    mov rax, -1
+    ret
+
+check_str_fail:
+    mov rax, -1
+    ret
+

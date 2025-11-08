@@ -32,5 +32,5 @@ fclean:  clean
 re: fclean all
 
 run : all
-	gcc main.c -L. -lft -o myprogram -g 
+	gcc main.c -L. -lft -o myprogram 
 	./myprogram

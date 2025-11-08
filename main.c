@@ -12,8 +12,8 @@ int main(){
 
    
     // putnmbrbase
-     char *str = "12";
-    int ret = ft_putnbr_base(-55, str);
+    char *str = "01";
+    int ret = ft_putnbr_base(999999999, str);
     printf(" \n%d\n%d\n", ret, (int) (str));
     perror("");
 
