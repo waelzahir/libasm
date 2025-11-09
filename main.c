@@ -6,7 +6,7 @@
 
 void check_ptr(void *p)
 {
-    printf("whats here %d \n", (int)p);
+    printf("whats here %p \n", p);
 
 }
 
@@ -21,6 +21,11 @@ void travers_list(t_list **head)
     }
 }
 
+int testFunc()
+{
+    printf("mamak\n");
+    return 2;
+}
 int main(){
     t_list * first_node  = calloc(1, sizeof(t_list));
 
@@ -29,21 +34,13 @@ int main(){
     char * s3 = "mamak"; 
 
     first_node->data = s1;
-    ft_list_push_front(&first_node, s2);
-    // int size = ft_list_size(first_node);
-    // printf("%d \n", size);
-    ft_list_push_front(&first_node, s3);
-        ft_list_push_front(&first_node, s3);
-            ft_list_push_front(&first_node, s3);
-    ft_list_push_front(&first_node, s3);
-    ft_list_push_front(&first_node, s3);
-    ft_list_push_front(&first_node, s3);
+   
+   ft_list_sort(&first_node, &testFunc);    
+}
 
-    int size = ft_list_size(first_node);
-    printf("%d \n", size);
 
-    
-    travers_list((t_list **)(&first_node));
+void ft_list_sort(t_list **begin_list, int (*cmp)()){
+    t_list **ptr = begin_list;
     
 
 }
