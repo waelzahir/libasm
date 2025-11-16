@@ -86,7 +86,7 @@
 //         printf("%p\n", h);
 //     }
 // }
-
+#include <time.h>
 
 
 void travers_list(t_list **head)
@@ -99,60 +99,62 @@ void travers_list(t_list **head)
     }
 }
 
-
-int main(){
-    t_list * n1  = calloc(1, sizeof(t_list));
-    t_list * n2  = calloc(1, sizeof(t_list));
-    t_list * n3  = calloc(1, sizeof(t_list));
-    t_list * n4  = calloc(1, sizeof(t_list));
-    t_list * n5  = calloc(1, sizeof(t_list));
-    t_list * n6  = calloc(1, sizeof(t_list));
-    t_list * n7  = calloc(1, sizeof(t_list));
-    t_list * n8  = calloc(1, sizeof(t_list));
-    t_list * n9  = calloc(1, sizeof(t_list));
-    t_list * n10  = calloc(1, sizeof(t_list));
-
-
-
-    char *s1 = "9";
-    char * s2 = "8"; 
-    char * s3 = "8"; 
-    char *s4 = "2";
-    char *s5 = "6";
-    char * s6 = "9"; 
-    char * s7 = "8"; 
-    char *s8 = "2";
-    char *s9 = "6";
-    char * s10 = "9"; 
-
-
-    n1->data = s1;
-    n2->data = s2;
-    n3->data = s3;
-    n4->data = s4;
-    n5->data = s5;
-    n6->data = s6;
-    n7->data = s7;
-    n8->data = s8;
-    n9->data = s9;
-    n10->data = s10;
-    
-    n1->next = n2;
-    n2->next = NULL;
-    n3->next = NULL;
-    n4->next = n5;
-    n5->next = n6;
-    n6->next = n7;
-    n7->next = n8;
-    n8->next = n9;
-    n9->next = n10;
-    n10->next = NULL;
-
-   int ret = ft_list_sort(&n1, &ft_strcmp);    
-   printf("%d %d \n", n1->data, ret);
-   travers_list(&n1);
-
+void freefunc(void *p){
+    printf("freed the data in node %s\n", p);
 }
+int main(){
+
+    t_list * node  = calloc(1, sizeof(t_list));
+
+    char *s1 = "da";
+    char *s2 = "ga";
+    char *s3 = "ba";
+    char *s4 = "ba";
+    char *s5 = "vca";
+    char *s6 = "vcca";
+    char *s7 = "ba";
+    char *s8 = "zda";
+    char *s9 = "dfbfa";
+    char *s10 = "dbfa";
+    char *s11 = "dbfda";
+
+
+
+
+    node->data = s1;
+    ft_list_push_front(&node, s2);
+    ft_list_push_front(&node, s3);
+    ft_list_push_front(&node, s4);
+    ft_list_push_front(&node, s5);
+    ft_list_push_front(&node, s6);
+    ft_list_push_front(&node, s7);
+    ft_list_push_front(&node, s8);
+    ft_list_push_front(&node, s9);
+    ft_list_push_front(&node, s10);
+    ft_list_push_front(&node, s11);
+
+    printf("list before sorting\n");
+    travers_list(&node);
+    
+    
+    
+    
+    ft_list_sort(&node, (int (*)())&ft_strcmp);  
+    printf("list after sorting\n");
+    travers_list(&node);
+
+    printf("deleting elements that have string \"s\" \n");
+    printf("strcp test %d %d\n", strcmp("s","s"), ft_strcmp("s","s"));
+
+    void *p = ft_list_remove_if(&node, "ba", (int (*)())&ft_strcmp , &freefunc);
+    travers_list(&node);
+    printf("%p, %p, %p, %s\n", p , &node, node, node->data);
+
+    //  void *m = ft_list_remove_if(&node, "ga", (int (*)())&ft_strcmp , &freefunc);
+    // travers_list(&node);
+    // printf("%p, %p, %p, %p\n", m , &node, node, node->data);
+}
+
 
 
 

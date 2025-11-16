@@ -2,6 +2,9 @@ global ft_list_sort
 extern ft_write
 
 ft_list_sort:
+    push r12
+    push r14 
+    push r15
     mov r14,  rdi 
     mov r15 , rsi
     mov rsi , [rdi]
@@ -38,6 +41,9 @@ swap_sym:
     jmp loop
 
 exit_success:
+    pop r15
+    pop r14
+    pop r12
     mov rax, 1
     ret
 
