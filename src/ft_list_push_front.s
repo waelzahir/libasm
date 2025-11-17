@@ -18,16 +18,13 @@ ft_list_push_front:
     je malloc_fail
 
     ; stack adress in r10 
+
     mov r10 , [rdi]
-    ; head node pointer 
-    mov r11, [r10]
-
-    mov [rax], rsi 
-    mov  [rax +8], r10
     mov [rdi], rax
-    ret 
+    mov [rax], rsi
+    mov [rax +8], r10
 
-
+    ret
 
 malloc_fail:
     mov rax , -1
