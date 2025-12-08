@@ -22,3 +22,4 @@ syscall_fail:
     ret
 
 section .note.GNU-stack
+; compliant with conventions

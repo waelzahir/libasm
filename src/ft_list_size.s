@@ -17,4 +17,5 @@ ft_list_size:
 
 
 
+section .note.GNU-stack
 

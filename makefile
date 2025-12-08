@@ -8,9 +8,8 @@ OBJ_DIR := obj
 SRC = ft_read.s ft_strcmp.s ft_strcpy.s \
 	ft_strdup.s ft_strlen.s ft_write.s \
 	ft_putnbr_base.s  ft_list_push_front.s \
-	ft_list_size.s ft_list_sort.s \
-	ft_list_remove_if.s
-
+	ft_list_size.s ft_list_sort.s 
+	
 OBJ = $(SRC:.s=.o)
 
 OBJ := $(addprefix $(OBJ_DIR)/, $(OBJ)) 
@@ -33,6 +32,3 @@ fclean:  clean
 	rm  -rf $(NAME) myprogram
 re: fclean all
 
-run : all
-	gcc main.c -L. -lft -o myprogram 
-	./myprogram

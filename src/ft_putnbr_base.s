@@ -6,6 +6,7 @@ extern ft_write
 
 ft_putnbr_base:
     ;check string is null 
+    push r12
     cmp rsi, 0
     je putnbr_base_fail;
     push rdi 
@@ -17,12 +18,14 @@ ft_putnbr_base:
     cmp rax , -1
     je putnbr_base_fail
     call print_routine
+    pop r12
     ret
 
 
 
 
 putnbr_base_fail:
+    pop r12
     mov rax, -1
     ret
 
@@ -129,3 +132,7 @@ check_str_fail:
     mov rax, -1
     ret
 
+
+
+section .note.GNU-stack
+; compliant with conventions

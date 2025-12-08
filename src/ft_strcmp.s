@@ -19,4 +19,4 @@ ft_strcmp:
     ret
 
 section .note.GNU-stack
-
+; compliant with conventions
